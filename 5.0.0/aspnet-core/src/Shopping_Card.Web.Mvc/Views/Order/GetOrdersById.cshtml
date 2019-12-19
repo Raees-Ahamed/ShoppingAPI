@@ -1,0 +1,43 @@
+﻿@model Shopping_Card.Web.Models.ViewModel.OrderViewModel
+@{
+    ViewData["Title"] = "GetOrdersById";
+}
+
+<h2>GetOrdersById</h2>
+<div class="container">
+    <div class="form-group">
+        <a class="btn  btn-success" onclick="EditOrder()">Save Changes</a>
+    </div>
+</div>
+<div class="container">
+    <div class="form-group">
+        <table class="table">
+            <tr>
+                <th>Order Line Id</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+            </tr>
+            @foreach (var Items in Model.OrderItems)
+             {
+        <tr>
+            <td id="orderLineId @Items.Id">@Items.Id</td>
+            <td>
+                <p id="baseOrderId">@Items.OrderId</p>
+                <p id="tempOrderId @Items.Id" hidden>@Items.OrderId</p>
+                <select onchange="LoadProductEdit(this.value,@Items.Id) " id="productId @Items.Id" asp-items="@(new SelectList(ViewBag.Products,"Id","Name"))" class="form-control">
+                    <option>@Items.Products.Name</option>
+                </select>
+            </td>
+            <td><p id="subId @Items.Id" hidden>@Items.ProductId</p><input type="text" id="price @Items.Id" value="@Items.Price" class="form-control" /></td>
+            <td><input type="number" id="qty @Items.Id" value="@Items.Qty" class="form-control" /></td>
+            <td id="orderId @Items.Id">@Items.OrderId</td>
+            <td><a class="btn btn-success" onclick="SetOrder(@Items.Id)" id="btnEdit @Items.Id">Edit</a></td>
+            <td><a class="btn btn-danger" onclick="RemoveOrder(@Items.Id)">Delete</a></td>
+        </tr>
+             }
+        </table>
+    </div>
+</div>
+<script src="~/JavaScript/LoadProduct.js"></script>
+<script src="~/JavaScript/Order.js"></script>

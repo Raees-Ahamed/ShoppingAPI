@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "AddOrder";
+}
+
+<h2 align="center">AddOrder</h2>
+
+
+
+<div class="container">
+    <div>
+        <table class="table">
+            <tr>
+                <th>Customer Name</th>
+                <th>Order Date</th>
+            </tr>
+            <tr>
+                <td>
+                    <select asp-items="@(new SelectList(ViewBag.ListOfCustomers,"Id","Fname"))" id="CustomerId" class="form-control">
+                        <option>Select Customer</option>
+                    </select>
+                </td>
+                <td><p id="date" class="form-control" /></td>
+                
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <div class="form-group">
+        <table class="table">
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>SubTotal</th>
+            </tr>
+            <tr>
+
+                <td>
+                    <select onchange="LoadProduct(this.value,null)" asp-items="@(new SelectList(ViewBag.ListOfProducts,"Id","Name"))" id="ProductId" class="form-control">
+                        <option>Select Product</option>
+                    </select>
+                </td>
+                <td><input type="text" id="Description" class="form-control" /></td>
+                <td><input type="text" id="Price" class="form-control" /></td>
+                <td><input type="number" min="1" id="Quantity" class="form-control" /></td>
+                <td><button class="btn btn-success" onclick="AddToCart()">Add To Order</button></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<br />
+
+<h3 align="center">Order Cart</h3>
+<br />
+<div class="container" align="center">
+    <div class="form-group">
+        <table class="table" id="CartTable">
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>SubTotal</th>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button class="btn btn-danger" onclick="ConfirmOrder()">Confirm Order</button></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="~/JavaScript/Order.js"></script>
+<script src="~/JavaScript/LoadProduct.js"></script>
+<script>document.getElementById("date").innerHTML = Date();</script>
