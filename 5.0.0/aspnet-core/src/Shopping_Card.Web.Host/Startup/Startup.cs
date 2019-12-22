@@ -19,12 +19,15 @@ using Abp.Json;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using Shopping_Card.Order;
+using Shopping_Card.Customer;
+using Shopping_Card.Product;
+using Shopping_Card.OrderItem;
 
 namespace Shopping_Card.Web.Host.Startup
 {
     public class Startup
     {
-        private const string _defaultCorsPolicyName = "localhost";
+        private const string _defaultCorsPolicyName = "http://localhost:21021";
 
         private readonly IConfigurationRoot _appConfiguration;
 
@@ -50,7 +53,10 @@ namespace Shopping_Card.Web.Host.Startup
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
-
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderItemService, OrderItemService>();
 
             IdentityRegistrar.Register(services);
             AuthConfigurer.Configure(services, _appConfiguration);
@@ -69,10 +75,10 @@ namespace Shopping_Card.Web.Host.Startup
                                 .Split(",", StringSplitOptions.RemoveEmptyEntries)
                                 .Select(o => o.RemovePostFix("/"))
                                 .ToArray()
-                        )
+                        ).AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowCredentials()
+                  
                 )
             );
 

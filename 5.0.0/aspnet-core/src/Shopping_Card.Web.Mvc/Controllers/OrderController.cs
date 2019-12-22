@@ -39,6 +39,13 @@ namespace Shopping_Card.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult CreateOrder([FromBody] OrderViewModel orderViewModel)
+        {
+            var order = mapper.Map<OrderBO>(orderViewModel);
+            orderService.CreateOrder(order);
+            return RedirectToAction("GetAllOrders", "Order");
+        }
 
         [HttpGet]
         public IActionResult GetAllOrders() {

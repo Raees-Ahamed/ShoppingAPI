@@ -98,7 +98,7 @@ function ConfirmOrder() {
     console.log(JSON.stringify(orders));
 
     $.ajax({
-        url: 'http://localhost:21021/api/v1/Order',
+        url: 'http://localhost:21021/api/Order',
         dataType: 'json',
         type: 'post',
         contentType: 'application/json',
@@ -110,9 +110,7 @@ function ConfirmOrder() {
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(jqXhr, textStatus, errorThrown);
         }
-    });
-
-    location.replace("../Order/GetAllOrders");
+    });   
 }
 
 function RemoveOrder(id) {
