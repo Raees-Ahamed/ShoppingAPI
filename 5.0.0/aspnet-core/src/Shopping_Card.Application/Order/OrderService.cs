@@ -26,17 +26,16 @@ namespace Shopping_Card.Order
             this.unitOfWork = unitOfWork;
         }
 
-
         public void ChangeOrder(OrderBO orderBO)
         {
             var tempOrder = repository.GetAllIncluding().Include(o=>o.OrderItems).First(i=>i.Id==orderBO.Id);
 
             foreach (var items in orderBO.OrderItems)
             {
-                var tempOrderLine = tempOrder.OrderItems.FirstOrDefault(f => f.Id == items.Id);
+               var tempOrderLine = tempOrder.OrderItems.FirstOrDefault(f => f.Id == items.Id);
                var isDelete = orderBO.OrderItems.FirstOrDefault(f => f.Id == items.Id).IsDelete;
+               var tempDifference = tempOrderLine.Qty - items.Qty;
 
-                var tempDifference = tempOrderLine.Qty - items.Qty;
                 tempOrderLine.ProductId = items.ProductId;
                 tempOrderLine.Qty = items.Qty;
 
@@ -45,10 +44,11 @@ namespace Shopping_Card.Order
                     var orderItem = tempOrder.OrderItems.FirstOrDefault(o => o.Id == items.Id);
                     tempOrder.OrderItems.Remove(orderItem);
                 }
+
                 productService.Update(items.ProductId, tempDifference);
                 repository.Update(tempOrder);
-                unitOfWork.SaveChanges();
             }
+            unitOfWork.SaveChanges();
         }
 
         public int CreateOrder(OrderBO order)
@@ -56,6 +56,7 @@ namespace Shopping_Card.Order
             var orderBOTemp = order.Create(order.CustomerId, order.Date, order.OrderItems);
             var Order = mapper.Map<Entities.Order>(orderBOTemp);            
             repository.Insert(Order);
+            unitOfWork.SaveChanges();
             return Order.Id;
         }
 

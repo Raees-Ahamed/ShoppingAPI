@@ -21,7 +21,6 @@ using Newtonsoft.Json.Serialization;
 using Shopping_Card.Customer;
 using Shopping_Card.Product;
 using Shopping_Card.Order;
-using Shopping_Card.OrderItem;
 
 namespace Shopping_Card.Web.Startup
 {
@@ -62,7 +61,6 @@ namespace Shopping_Card.Web.Startup
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
-            services.AddTransient<IOrderItemService ,OrderItemService>();
 
             services.AddSignalR();
 

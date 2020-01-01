@@ -1,5 +1,4 @@
 ﻿using Shopping_Card.Customer.BO;
-using Shopping_Card.OrderItem.BO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +22,10 @@ namespace Shopping_Card.Order.BO
             foreach (var item in orderItemsBO)
             {
                 if (item.Qty == 0)
+                {
+                    throw new Exception();
+                }
+                else if (item.Qty >= 100)
                 {
                     throw new Exception();
                 }

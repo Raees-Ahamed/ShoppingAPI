@@ -14,6 +14,7 @@ namespace Shopping_Card.EntityFrameworkCore
         public Shopping_CardDbContext(DbContextOptions<Shopping_CardDbContext> options)
             : base(options)
         {
+
         }
 
         public DbSet<Customer> Customers { get; set ; }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Shopping_Card.OrderItem.BO;
 using System;
 using System.Collections.Generic;
 using System.Text;

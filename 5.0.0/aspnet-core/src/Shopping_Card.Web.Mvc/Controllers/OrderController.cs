@@ -8,7 +8,6 @@ using Shopping_Card.Controllers;
 using Shopping_Card.Customer;
 using Shopping_Card.Order;
 using Shopping_Card.Order.BO;
-using Shopping_Card.OrderItem;
 using Shopping_Card.Product;
 using Shopping_Card.Web.Models.ViewModel;
 
@@ -20,15 +19,12 @@ namespace Shopping_Card.Web.Controllers
         private readonly IProductService productService;
         private readonly IOrderService orderService;
         private readonly IMapper mapper;
-        private readonly IOrderItemService orderItemService;
-
-        public OrderController(ICustomerService customerService,IProductService productService,IOrderService orderService,IMapper mapper,IOrderItemService orderItemService)
+        public OrderController(ICustomerService customerService,IProductService productService,IOrderService orderService,IMapper mapper)
         {
             this.customerService = customerService;
             this.productService = productService;
             this.orderService = orderService;
             this.mapper = mapper;
-            this.orderItemService = orderItemService;
         }
 
         [HttpGet]
@@ -69,11 +65,7 @@ namespace Shopping_Card.Web.Controllers
             return View(items);
         }
 
-        [HttpGet]
-        public IActionResult DeleteOrderItems(int id) {
-            orderItemService.DeleteOrderItem(id);
-            return RedirectToAction("GetAllOrders","Order");
-        }
+       
 
         [HttpPost]
         public IActionResult ChangeOrder([FromBody]OrderViewModel orderViewModel) {

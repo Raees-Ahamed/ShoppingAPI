@@ -7,11 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shopping_Card.Web.AutoMapper
-{
+namespace Shopping_Card.Web.Host.AutoMapper
+{ 
     public class ViewModelMapper : Profile
     {
-
         public ViewModelMapper()
         {
             CreateMap<ProductViewModel, ProductBO>().ReverseMap();
@@ -21,4 +20,5 @@ namespace Shopping_Card.Web.AutoMapper
             CreateMap<OrderBO, OrderItemBO>().ReverseMap();
         }
     }
+       
 }

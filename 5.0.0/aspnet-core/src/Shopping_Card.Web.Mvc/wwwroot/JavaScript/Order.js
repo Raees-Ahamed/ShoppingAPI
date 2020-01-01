@@ -110,7 +110,8 @@ function ConfirmOrder() {
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(jqXhr, textStatus, errorThrown);
         }
-    });   
+    });
+    location.reload();
 }
 
 function RemoveOrder(id) {
@@ -169,13 +170,9 @@ function EditOrder() {
     order.Id = parseInt(idvalue);
     order.Date = currentDate.replace(/^"(.*)"$/, '$1');
 
-    //var http2 = new XMLHttpRequest();
-    //http2.open("POST", "../Order/ChangeOrder", true);
-    //http2.setRequestHeader("Content-Type", "application/json");
-    //http2.send(JSON.stringify(order));
 
     $.ajax({
-        url: '../ChangeOrder',
+        url: 'http://localhost:21021/api/Put',
         dataType: 'json',
         type: 'post',
         contentType: 'application/json',
@@ -188,7 +185,5 @@ function EditOrder() {
             console.log(jqXhr, textStatus, errorThrown);
         }
     });
-
     alert("Updated Successfully");
-    location.replace("../GetAllOrders");
 }
